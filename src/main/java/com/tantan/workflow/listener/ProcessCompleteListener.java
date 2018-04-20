@@ -9,14 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
-import org.activiti.engine.impl.context.Context;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-
-import com.tantan.workflow.constants.Constants;
 
 /**
  * 全局流程执行结束事件. <br>
@@ -25,24 +21,13 @@ import com.tantan.workflow.constants.Constants;
  *
  */
 @Slf4j
+@Component
 public class ProcessCompleteListener implements ActivitiEventListener {
 
 	@Override
 	public void onEvent(ActivitiEvent event) {
-		log.info("全局流程执行结束事件");
-		ProcessInstance processInstance = Context.getExecutionContext()
-				.getProcessInstance();
-		ProcessDefinitionEntity processDefinition = Context
-				.getExecutionContext().getProcessDefinition();
-
-		int status = Constants.ProcessInstanceStatus.EXCEPTION_END;
-		List<ActivityImpl> activities = processDefinition.getActivities();
-		if (isEndpoint(processInstance.getActivityId(), activities)) {
-			status = Constants.ProcessInstanceStatus.END;
-		}
-
-		log.info("流程状态:"+status);
-		
+		log.info("全局流程事件"+event.getType());
+	
 		//TODO 流程状态发送消息队列进行落地处理
 	}
 
