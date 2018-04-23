@@ -81,7 +81,7 @@ public class MyActivitiApplicationTests {
 
 	@Test
 	public void findMyPersonalTask() {
-		String assignee = "李四";
+		String assignee = "张三";
 		List<Task> list = processEngine.getTaskService()// 与正在执行的任务管理相关的Service
 				.createTaskQuery()// 创建任务查询对象
 				/** 查询条件（where部分） */
@@ -118,7 +118,7 @@ public class MyActivitiApplicationTests {
     @Test  
     public void completeMyPersonalTask(){  
         //任务ID  
-        String taskId = "77502";  
+        String taskId = "92506";  
         
         Map<String, Object> variables = new HashMap<String, Object>();  
        // variables.put("outcome", Constants.ProcessAuditStatus.IS_NOT_AGREE);  //模拟驳回处理

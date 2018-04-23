@@ -80,6 +80,7 @@ public class WorkflowConfig extends AbstractProcessEngineAutoConfiguration imple
     	log.info(StringUtils.center("添加全局注册事件", 100,"=")); 
     	SpringProcessEngineConfiguration configuration=this.baseSpringProcessEngineConfiguration(workflowDataSource(), activitiTransactionManager, springAsyncExecutor);
     	configuration.setEventListeners(Collections.singletonList(processCompleteListener));
+
     	log.info("设置全局监听事件成功");
         return configuration;
     }

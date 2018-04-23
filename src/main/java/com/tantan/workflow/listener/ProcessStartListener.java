@@ -31,6 +31,7 @@ public class ProcessStartListener implements ExecutionListener {
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
 		log.info(StringUtils.center("流程启动", 100, "="));
+		log.info("事件名称{}",execution.getEventName());
 		ProcessDefinitionEntity processDefinitionEntity=Context.getExecutionContext().getProcessDefinition();
 		Map<String, Object>  variables=Context.getExecutionContext().getExecution().getVariables();
 		String instanceId=Context.getExecutionContext().getExecution().getProcessInstanceId();
