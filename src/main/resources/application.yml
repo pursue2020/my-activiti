@@ -22,3 +22,7 @@ workflow.jdbc:
   idleTimeout: 30000
   defaultAutoCommit: false
   connectionTestQuery: SELECT 1 
+
+#log4j2配置信息
+logging:
+ config: classpath:log4j2.xml

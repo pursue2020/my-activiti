@@ -66,7 +66,7 @@ public class MyActivitiApplicationTests {
 	@Test
 	public void startProcessInstance() {
 		// 流程定义的KEY
-		String processDefinitionKey = "workflow2";
+		String processDefinitionKey = "workflow3";
 		Map<String, Object> variables = new HashMap<String, Object>();  
         variables.put("appUser", "张三");  
         variables.put("fristUser", "李四");

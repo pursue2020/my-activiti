@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration status="off" monitorInterval="1800">
+	<properties>
+		<property name="LOG_HOME">/opt/logs</property>
+		<property name="LOG_FILE_NAME">my-activiti</property>
+	</properties>
+
+	<!--%d{HH:mm:ss.SSS} 表示输出到毫秒的时间 -->
+	<!--%t 输出当前线程名称 -->
+	<!--%-5level 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0 -->
+	<!--%logger 输出logger名称，因为Root Logger没有名称，所以没有输出 -->
+	<!--%msg 日志文本 -->
+	<!--%n 换行 -->
+	<!--其他常用的占位符有： -->
+	<!--%F 输出所在的类文件名，如Client.java -->
+	<!--%L 输出行号 -->
+	<!--%M 输出所在方法名 -->
+	<!--%l 输出语句所在的行数, 包括类名、方法名、文件名、行数 -->
+	<!--%X{sessionId} 输出MDC中信息 -->
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t %X{sessionId}] %-5p %logger (%F:%L) - %m%n" />
+		</Console>
+		<RollingRandomAccessFile name="FileInfo"
+			fileName="${LOG_HOME}/${LOG_FILE_NAME}/info.log"
+			filePattern="${LOG_HOME}/${LOG_FILE_NAME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="info" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5p %logger (%F:%L) - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="FileWarn"
+			fileName="${LOG_HOME}/${LOG_FILE_NAME}/warn.log"
+			filePattern="${LOG_HOME}/${LOG_FILE_NAME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="warn" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5p %logger (%F:%L) - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="FileError"
+			fileName="${LOG_HOME}/${LOG_FILE_NAME}/error.log"
+			filePattern="${LOG_HOME}/${LOG_FILE_NAME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="error" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5p %logger (%F:%L) - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingRandomAccessFile>
+	</Appenders>
+
+	<Loggers>
+		<logger name="org.springframework.core" level="info" />
+		<logger name="org.springframework.beans" level="info" />
+		<logger name="org.springframework.context" level="info" />
+		<logger name="org.springframework.web" level="info" />
+		<logger name="org.activiti" level="info"/>
+		<logger name="org.mybatis" level="info"/>
+		<logger name="org.apache" level="error" />
+		<logger name="com.zhubajie.configcenter" level="error" />
+		<logger name="com.alibaba.dubbo" level="error" />
+		<logger name="com.tantan.workflow" level="info"/>
+
+
+		<logger name="log4jdbc" level="info" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="jdbc.audit" level="off" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="jdbc.sqlonly" level="off" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="jdbc.sqltiming" level="debug" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="jdbc.connection" level="off" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="jdbc.resultset" level="off" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+		<logger name="jdbc.resultsettable" level="debug" additivity="false">
+			<appender-ref ref="Console" />
+		</logger>
+
+		<root level="info" includeLocation="true">
+			<appender-ref ref="Console" />
+			<appender-ref ref="FileInfo" />
+			<appender-ref ref="FileWarn" />
+			<appender-ref ref="FileError" />
+		</root>
+	</Loggers>
+</Configuration>

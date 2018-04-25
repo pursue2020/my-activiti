@@ -52,25 +52,7 @@ public class WorkflowConfig extends AbstractProcessEngineAutoConfiguration imple
     	 log.info("工作流引擎数据源创建完毕");
     	 return dataSource;
     }
-   
-//    /**
-//     * 监听事件配置添加
-//     */
-//    @Override
-//	public void afterPropertiesSet() throws Exception {
-//    	log.info(StringUtils.center("添加全局注册事件", 100,"="));
-//    	ProcessEngineConfigurationImpl configuration=processEngineFactoryBean.getProcessEngineConfiguration();
-//        
-////      event-listener which will only be notified when an event of the given types occurs.
-////      Map<String, List<ActivitiEventListener>> typedListeners = new HashMap<>();
-////      typedListeners.put("TASK_COMPLETED", Collections.singletonList(processCompleteListener));
-////      configuration.setTypedEventListeners(typedListeners);
-//      
-//      //监听所有事件  Adds an event-listener which will be notified of ALL events by the dispatcher
-//      configuration.setEventListeners(Collections.singletonList(processCompleteListener));
-//      log.info("设置全局监听事件成功");
-//	}
-    
+
 
 
     //注入数据源和事务管理器
